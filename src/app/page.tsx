@@ -8,8 +8,6 @@ export default function Home() {
   debugger
   return (
     <main className={inter.className}>
-      <h1 className={inter.className} >Home Page</h1>
-      <Link href={"/users"}>Users</Link>
     </main>
   )
 }
