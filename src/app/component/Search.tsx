@@ -2,21 +2,18 @@
 
 import React,{Component, FormEvent} from "react";
 import withRouter from "./withRouter";
-import { WithRouterProps } from "next/dist/client/with-router";
-import { NextRouter } from "next/router";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-interface typeDef {
+interface typeStateDef {
     search : string;
-    
 };
 
-interface PRops {
+interface typePropsDef {
     router : AppRouterInstance;
 };
 
-class WrapSearch extends Component<PRops,typeDef>{
-    constructor(props: PRops | Readonly<PRops>){
+class WrapSearch extends Component<typePropsDef,typeStateDef>{
+    constructor(props: typePropsDef | Readonly<typePropsDef>){
         super(props);
 
         this.state={
