@@ -20,7 +20,7 @@ class WrapSearch extends Component<typePropsDef,typeStateDef>{
             search:""
         };
 
-        this.handleSubmit = this.handleSubmit.bind('this');
+        this.handleSubmit = this.handleSubmit.bind(this);
     };
 
     async handleSubmit (e : FormEvent<HTMLFormElement>){
