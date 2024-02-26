@@ -1,6 +1,3 @@
-//To send typed responses without error
-import { NextResponse } from "next/server"
-
-export async function GET(){
-    return NextResponse.json({"message":'Hello, Next.js!'})
+export async function GET() {
+    return new Response('Welcome to API Routes')
 }
