@@ -1,3 +1,5 @@
+import Posts from "./components/Posts";
+
 export default function Home() {
   return (
     <main className="px-6 mx-auto">
@@ -7,6 +9,8 @@ export default function Home() {
           Myself <span className="font-bold">Vishal</span>.
         </span>
       </p>
+      {/*Instead of lists of posts we have two json strings*/}
+      <Posts/>
     </main>
   );
 }
