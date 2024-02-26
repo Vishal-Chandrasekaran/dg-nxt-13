@@ -31,3 +31,38 @@ export async function DELETE(request: Request) {
     return NextResponse.json({"message": `Todo Number ${id} has been deleted.`})
 };
 
+export async function POST( request:Request ) {
+    const{userId,title}:Partial<Todo> = await request.json();
+    if(!userId || !title) return NextResponse.json({"message":"Required value is missing"});
+    const res = await fetch(DATA_SOURCE_URL,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+             'Api-Key':API_KEY
+        },
+        body:  JSON.stringify({userId, title, completed:false
+        })
+    })
+    const newTodo: Todo = await res.json();
+
+    return NextResponse.json(newTodo)
+};
+
+export async function PUT(request:Request) {
+    const {userId, title, id, completed}:Todo = await request.json();
+    if(!id || !userId || !title || typeof(completed) !== "boolean") return NextResponse.json({"message":"Required value is missing"});
+
+    const res = await fetch(`${DATA_SOURCE_URL}/${id}`,{
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json',
+            "Api-Key": API_KEY
+        },
+        body: JSON.stringify({userId,title,completed})
+    })
+    const updatedTodo:Todo = await res.json();
+
+    return NextResponse.json(updatedTodo);
+
+};
+
