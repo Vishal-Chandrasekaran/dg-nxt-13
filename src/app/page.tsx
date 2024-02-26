@@ -5,7 +5,6 @@ export default function Home() {
   return (
     <main>
       <h1>Hello World</h1>
-      <Link href={"/about"}>Visit <strong>about</strong> for once</Link>
     </main>
   )
 }
