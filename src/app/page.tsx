@@ -1,11 +1,14 @@
-import Link from "next/link"
+import TodoList from "./components/TodoList";
+import AddTodo from "./components/AddTodo";
+import { Fragment } from "react";
+
+export const revalidate = 0;
 
 export default function Home() {
-  debugger
   return (
-    <main>
-      <h1>Hello World</h1>
-      <Link href={"/about"}>Visit <strong>about</strong> for once</Link>
-    </main>
+    <Fragment>
+      <AddTodo />
+      <TodoList/>
+    </Fragment>
   )
 }

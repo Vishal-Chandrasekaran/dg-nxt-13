@@ -1,0 +1,45 @@
+{
+  "todos": [
+    {
+      "userId": 1,
+      "title": "Get Coffee ☕☕☕",
+      "completed": false,
+      "id": "2"
+    },
+    {
+      "userId": 1,
+      "title": "Go to Work ⚒",
+      "completed": false,
+      "id": "3"
+    },
+    {
+      "userId": 1,
+      "title": "Write Code 💻",
+      "id": "4",
+      "completed": false
+    },
+    {
+      "id": "928e",
+      "userId": 1,
+      "title": "Hello 👋",
+      "completed": false
+    },
+    {
+      "id": "e354",
+      "userId": 1,
+      "title": "podcasts 🎧",
+      "completed": false
+    },
+    {
+      "id": "c276",
+      "userId": 1,
+      "title": "Meditate🤗",
+      "completed": false
+    },
+    {
+      "id": "3e21",
+      "userId": 1,
+      "title": "burger"
+    }
+  ]
+}
