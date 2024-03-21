@@ -2,6 +2,7 @@ import getFormattedDate from "../../../../lib/getFormattedDates";
 import { getPostsMeta, getPostByName } from "../../../../lib/posts";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import 'highlight.js/styles/github-dark.css'
 
 //a route setup config for revalidation (making this page server-side rendered with no cache)
 export const revalidate = 0;
