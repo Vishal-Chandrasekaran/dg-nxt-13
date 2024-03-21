@@ -30,7 +30,6 @@ export async function generateMetadata({params:{postId}}: Props)
 {
     //we need post from getSortedPostsData to display it as a seperate page
     const post = await getPostByName(`${postId}.mdx`); //The individual files are fetched
-    console.log(post)
     
     //What if metadata doesn't exist for the page
     if(!post){
