@@ -30,7 +30,7 @@ export async function generateMetadata({params:{postId}}: Props)
 {
     //we need post from getSortedPostsData to display it as a seperate page
     const post = await getPostByName(`${postId}.mdx`); //The individual files are fetched
-
+    console.log(post)
     
     //What if metadata doesn't exist for the page
     if(!post){
@@ -49,22 +49,22 @@ export async function generateMetadata({params:{postId}}: Props)
 export default async function Post({params:{postId}}: Props)
 {
     //individual posts fetch 
-    const post = getPostByName(`${postId}.mdx`); 
+    const post = await getPostByName(`${postId}.mdx`); 
 
     if(!post) notFound()
     
     //destructuring the post to get metadata values
     const {meta,content} = post;
 
-    const pubDate = getFormattedDate(meta.date);
+     const pubDate = getFormattedDate(meta.date);
 
-    const tags = meta.tags.map((tag,i) => ( <Link key={i} href={`/tags/${tag}`} >{tag}</Link> ))
+     const tags = meta.tags.map((tag,i) => ( <Link key={i} href={`/tags/${tag}`} >{tag}</Link> ))
 
     return(
         <>
         <h2 className="text-3xl mt-4 mb-0" >{meta.title}</h2>
         <p className="mt-0 text-sm">{pubDate}</p>
-        <article>{content}</article>
+        <article>{post.content}</article>
         <section>
             <h3>Related:</h3>
             <div className="flex flex-row gap-4">{tags}</div>
