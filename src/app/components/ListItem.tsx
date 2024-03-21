@@ -4,7 +4,7 @@ import getFormattedDate from "../../../lib/getFormattedDates";
 
 //type blogpost has structure of id title date of each posts
 type Props= {
-    post:BlogPost
+    post:Meta
 };
 
 export default function ListItem({post}:Props){

@@ -1,61 +1,77 @@
 import getFormattedDate from "../../../../lib/getFormattedDates";
-import { getPostsData, getSortedPostsData } from "../../../../lib/posts";
+import { getPostsMeta, getPostByName } from "../../../../lib/posts";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
-//The some of the lines of code of generateMetadata and Post share the same
+//a route setup config for revalidation (making this page server-side rendered with no cache)
+export const revalidate = 0;
 
-export function generateMetadata({params}:{params:{postId:string}})
+//creating a type for the prop
+type Props = {
+    params: {
+        postId: string
+    }
+}
+
+//This function should contain array with objects inside of contents posts and id
+// export async function generateStaticParams() {
+//     const posts = await getPostsMeta( ) //deduped!
+
+//     //we defined that the posts can be undefined in the typescript
+//     if(!posts) return []
+
+//     return posts.map((post) => ({
+//         postId: post.id
+//     }))
+// }
+
+//
+export async function generateMetadata({params:{postId}}: Props)
 {
     //we need post from getSortedPostsData to display it as a seperate page
-    const posts = getSortedPostsData(); //This can be done more than 1 time Next.js can de-duplicate requests
-    //Now, extracting the postId from params
-    const {postId} = params;
-    //What if there is no page exists for that param 
-    //we check its existence by searching the string with notated id property from each post
-    const post = posts.find(post => post.id === postId);
+    const post = await getPostByName(`${postId}.mdx`); //The individual files are fetched
 
+    
     //What if metadata doesn't exist for the page
     if(!post){
         return{
+            // this is very minimal metadata in order to keep the posts simple
             title:'Post not found'
         }
     }
     
-    //it is time to return the title and description of the metadata
+    //it is time to return the title and description of the meta and content from the Blogpost
     return {
-        title:post.title
+        title:post.meta.title
     }
 };
 
-export default async function Post({params}:{params:{postId:string}})
+export default async function Post({params:{postId}}: Props)
 {
-    //we need post from getSortedPostsData to display it as a seperate page
-    const posts = getSortedPostsData(); //This can be done more than 1 time Next.js can de-duplicate requests
-    //Now, extracting the postId from params
-    const {postId} = params;
-    //What if there is no page exists for that param 
-    //we check its existence by searching the string with notated id property from each post
-    if (!posts.find(post => post.id === postId)) notFound()
-    //as we used this function, most likely we implement a custom 404 page
-    //Now we get every single post's details in a request function
-    const {title,date,contentHTML} = await getPostsData(postId);
+    //individual posts fetch 
+    const post = getPostByName(`${postId}.mdx`); 
 
-    const pubDate = getFormattedDate(date);
+    if(!post) notFound()
+    
+    //destructuring the post to get metadata values
+    const {meta,content} = post;
+
+    const pubDate = getFormattedDate(meta.date);
+
+    const tags = meta.tags.map((tag,i) => ( <Link key={i} href={`/tags/${tag}`} >{tag}</Link> ))
 
     return(
-        <main className="px-6 prose prose-xl prose-slate dark:prose-invert mx-auto" >
-            {/* The title of the article is in h1 */}
-            <h1 className="text-3xl mt-4 mb-0 font-bold dark:text-white/90">{title}</h1>
-            {/* Publication date of the article */}
-            <p className="mt-0">{pubDate}</p>
-            <article className="dark:text-white/90" >
-                {/* This is used to convert the trustedHTML into plain strings */}
-                <section dangerouslySetInnerHTML={{__html:contentHTML}} className="mt-6 mx-auto max-w-2xl" />
-                <p>
-                    <Link href="/" >Back to home</Link>
-                </p>
-            </article>
-        </main>
+        <>
+        <h2 className="text-3xl mt-4 mb-0" >{meta.title}</h2>
+        <p className="mt-0 text-sm">{pubDate}</p>
+        <article>{content}</article>
+        <section>
+            <h3>Related:</h3>
+            <div className="flex flex-row gap-4">{tags}</div>
+        </section>
+        <p className="mb-10">
+            <Link href={"/"}>Back to Home</Link>
+        </p>
+        </>
     )
 };
