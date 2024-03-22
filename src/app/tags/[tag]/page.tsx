@@ -5,7 +5,7 @@ import ListItem from "@/app/components/ListItem";
 // a component acts like lists to cover all the file titles with date
 import Link from "next/link";
 
-export const revalidate = 10; // changesd from 86400 to 0 for dev purposes
+export const revalidate = 5; // changesd from 86400 to 0 for dev purposes
 
 type Props = {
     params: {

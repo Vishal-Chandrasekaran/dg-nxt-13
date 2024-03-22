@@ -3,7 +3,7 @@ import MyProfilePic from "./components/MyProfilePic";
 import Video from "./components/Video";
 
 //This is the only possible area too implement route segment options
-export const revalidate = 10;// revalidate at most every hour
+export const revalidate = 5;// revalidate at most every hour
 //The default values are already applied and handled by Next.js 
 
 export default function Home() {
