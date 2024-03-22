@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import 'highlight.js/styles/github-dark.css'
 
+
 //a route setup config for revalidation (making this page server-side rendered with no cache)
-export const revalidate = 0;
+export const revalidate = 10;
 
 //creating a type for the prop
 type Props = {
@@ -15,16 +16,16 @@ type Props = {
 }
 
 //This function should contain array with objects inside of contents posts and id
-// export async function generateStaticParams() {
-//     const posts = await getPostsMeta( ) //deduped!
+export async function generateStaticParams() {
+    const posts = await getPostsMeta( ) //deduped!
 
-//     //we defined that the posts can be undefined in the typescript
-//     if(!posts) return []
+    //we defined that the posts can be undefined in the typescript
+    if(!posts) return []
 
-//     return posts.map((post) => ({
-//         postId: post.id
-//     }))
-// }
+    return posts.map((post) => ({
+        postId: post.id
+    }))
+}
 
 //
 export async function generateMetadata({params:{postId}}: Props)

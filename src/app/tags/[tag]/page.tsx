@@ -5,7 +5,7 @@ import ListItem from "@/app/components/ListItem";
 // a component acts like lists to cover all the file titles with date
 import Link from "next/link";
 
-export const revalidate = 0; // changesd from 86400 to 0 for dev purposes
+export const revalidate = 10; // changesd from 86400 to 0 for dev purposes
 
 type Props = {
     params: {
@@ -13,15 +13,15 @@ type Props = {
     }
 }
 
-// export async function generateStaticParams(){
-//     const posts = await getPostsMeta() //deduped!
-//     if(!posts) return [];
-//     //Set is similar to array but doesn't allow duplicate values
-//     const tags = new Set(posts.map((post) => post.tags).flat())
-//     //taking each unique tags and removing their nested level by flat method
-//     return Array.from(tags).map((tag) => ({tag}))
-//     //converting tags into arrays by using array constructor and from() now we add objects to every single array element using map
-// }
+export async function generateStaticParams(){
+    const posts = await getPostsMeta() //deduped!
+    if(!posts) return [];
+    //Set is similar to array but doesn't allow duplicate values
+    const tags = new Set(posts.map((post) => post.tags).flat())
+    //taking each unique tags and removing their nested level by flat method
+    return Array.from(tags).map((tag) => ({tag}))
+    //converting tags into arrays by using array constructor and from() now we add objects to every single array element using map
+}
 
 // Reasons for commenting this generateStaticParams:
 // 1) It doesn't work well if the revalidate is zero
@@ -33,7 +33,7 @@ export function generateMetadata({params:{tag}}:Props) {
         title:`Posts about ${tag}`
     }
 }
-
+{/* @ts-expect-error Server Component */}
 export default async function TagPostList({params:{tag}}) {
     //gathering all the metadata
     const posts = await getPostsMeta();

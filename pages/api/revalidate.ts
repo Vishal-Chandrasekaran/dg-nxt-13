@@ -5,7 +5,7 @@
 
 import { NextApiRequest,NextApiResponse } from "next";
 
-//This handler cannot be teseted in the dev mode as it would return a 500 status 
+//This handler cannot be tested in the dev mode as it would return a 500 status 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
         //Checking our secret
         if (req.query.secret !== process.env.API_KEY) {

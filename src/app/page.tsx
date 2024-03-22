@@ -1,5 +1,6 @@
 import Posts from "./components/Posts";
 import MyProfilePic from "./components/MyProfilePic";
+import Video from "./components/Video";
 
 //This is the only possible area too implement route segment options
 export const revalidate = 10;// revalidate at most every hour
@@ -15,8 +16,9 @@ export default function Home() {
           I'm <span className="font-bold">Vishal</span>.
         </span>
       </p>
-      {/*Instead of lists of posts we have two json strings*/}
+      {/* @ts-expect-error Server Component */}
       <Posts/>
+      
     </div>
   );
 }

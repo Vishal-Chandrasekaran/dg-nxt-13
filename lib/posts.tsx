@@ -1,9 +1,14 @@
 import { compileMDX } from "next-mdx-remote/rsc";
 //rsc includes in the packages means that it supports rsc in nextjs
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+// @ts-ignore
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 //importing highlight packages to make the markdown look good
+import Video from "@/app/components/Video";
+import CustomImage from "@/app/components/CustomImage";
+
+// adding it to the compileMDX components
 
 //function that is used to create URL or path for each individual file
 export async function getPostByName(
@@ -37,6 +42,7 @@ export async function getPostByName(
     tags: string[];
   }>({
     source: rawMDX,
+    components:{Video, CustomImage},
     options: {
       parseFrontmatter: true,
       mdxOptions: {
