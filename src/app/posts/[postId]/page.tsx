@@ -6,7 +6,7 @@ import 'highlight.js/styles/github-dark.css'
 
 
 //a route setup config for revalidation (making this page server-side rendered with no cache)
-export const revalidate = 0;
+export const revalidate = 3600;
 
 //creating a type for the prop
 type Props = {
